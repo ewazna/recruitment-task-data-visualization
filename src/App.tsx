@@ -1,35 +1,96 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useMemo, useState } from "react";
+import { Dayjs } from "dayjs";
+import DateRangePicker from "./components/DateRangePicker/DateRangePicker";
+import OrdersByCategoryChart from "./components/OrdersByCategoryChart/OrdersByCategoryChart";
+import {
+  findEarliestDate,
+  findLatestDate,
+  getCategoriesForXAxis,
+  getFilteredOrdersByDateRange,
+  getSeriesForOrdersByCategoryChart,
+} from "./utils";
+import { fetchOrders } from "./api";
+import type { Order } from "./types";
+import { isDayjs } from "./typeGuards";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [fetchedOrders, setFetchedOrders] = useState<Order[] | null>(null);
+  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+
+  useEffect(() => {
+    const loadOrders = async () => {
+      const orders = await fetchOrders();
+      setFetchedOrders(orders);
+
+      if (orders && orders.length > 0) {
+        setStartDate(findEarliestDate(orders));
+        setEndDate(findLatestDate(orders));
+      }
+    };
+
+    loadOrders();
+  }, []);
+
+  const handleChangeStartDate = (newDate: Dayjs | null) =>
+    setStartDate(newDate);
+  const handleChangeEndDate = (newDate: Dayjs | null) => setEndDate(newDate);
+
+  const filteredOrders = useMemo(() => {
+    if (isDayjs(startDate) && isDayjs(endDate) && fetchedOrders) {
+      return getFilteredOrdersByDateRange(startDate, endDate, fetchedOrders);
+    }
+    return [];
+  }, [startDate, endDate, fetchedOrders]);
+
+  const xAxisCategories = useMemo(() => {
+    if (isDayjs(startDate) && isDayjs(endDate)) {
+      return getCategoriesForXAxis(startDate, endDate);
+    }
+    return [];
+  }, [startDate, endDate]);
+
+  const ordersByCategoryChartSeries = useMemo(() => {
+    if (xAxisCategories && filteredOrders) {
+      return getSeriesForOrdersByCategoryChart(xAxisCategories, filteredOrders);
+    }
+    return [];
+  }, [xAxisCategories, filteredOrders]);
+
+  const minDateRange = useMemo(() => {
+    if (fetchedOrders && fetchedOrders.length > 0) {
+      return findEarliestDate(fetchedOrders);
+    }
+    return null;
+  }, [fetchedOrders]);
+
+  const maxDateRange = useMemo(() => {
+    if (fetchedOrders && fetchedOrders.length > 0) {
+      return findLatestDate(fetchedOrders);
+    }
+    return null;
+  }, [fetchedOrders]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+    <div className="container">
+      <DateRangePicker
+        minDate={minDateRange}
+        maxDate={maxDateRange}
+        startDate={startDate}
+        endDate={endDate}
+        handleChangeStartDate={handleChangeStartDate}
+        handleChangeEndDate={handleChangeEndDate}
+      />
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <OrdersByCategoryChart
+          xAxisCategories={xAxisCategories}
+          series={ordersByCategoryChartSeries}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
