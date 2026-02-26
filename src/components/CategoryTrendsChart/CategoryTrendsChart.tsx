@@ -1,8 +1,8 @@
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { chartColors, highchartsTheme } from "../../theme/highchartsTheme";
-import ChartSwitcher from "../ChartSwitcher/ChartSwitcher";
 import { useMemo, useState } from "react";
+import ChartSwitcher from "../ChartSwitcher/ChartSwitcher";
+import { highchartsTheme, themeStyles } from "../../theme/highchartsTheme";
 import { getSeriesForByCategoryChart } from "./utils";
 import type { MouseEvent } from "react";
 import type { YAxisData } from "../ChartSwitcher/types";
@@ -26,6 +26,7 @@ const CategoryTrendsChart = ({
   }, [xAxisCategories, filteredOrders, selectedData]);
 
   const title = selectedData[0].toUpperCase().concat(selectedData.slice(1));
+  const visibleCurrency = selectedData === "revenue" ? currency : "";
   const YAxisLabel = {
     orders: "Number of orders",
     revenue: `Gross revenue in ${currency}`,
@@ -38,29 +39,15 @@ const CategoryTrendsChart = ({
     setSelectedData(newValue);
   };
 
-  const themeStyles = [
-    {
-      main: chartColors.purple,
-      transparent: chartColors.purpleTransparent,
-      marker: chartColors.purpleLight,
-    },
-    {
-      main: chartColors.green,
-      transparent: chartColors.greenTransparent,
-      marker: chartColors.greenLight,
-    },
-    {
-      main: chartColors.orange,
-      transparent: chartColors.orangeTransparent,
-      marker: chartColors.orangeLight,
-    },
-  ];
-
-  const options: Highcharts.Options = {
+  const options = {
     ...highchartsTheme,
     chart: {
       ...highchartsTheme.chart,
-      type: "areaspline",
+      type: "area",
+      custom: {
+        title,
+        visibleCurrency,
+      },
     },
     title: {
       ...highchartsTheme.title,
@@ -69,14 +56,16 @@ const CategoryTrendsChart = ({
     xAxis: {
       ...highchartsTheme.xAxis,
       categories: xAxisCategories,
+      tickmarkPlacement: "on",
     },
     yAxis: {
       ...highchartsTheme.yAxis,
       title: { ...highchartsTheme.yAxis.title, text: YAxisLabel[selectedData] },
     },
     plotOptions: {
-      areaspline: {
+      area: {
         stacking: "normal",
+        pointPlacement: "on",
       },
     },
     series: series.map((category, idx) => ({
@@ -94,8 +83,8 @@ const CategoryTrendsChart = ({
       fillColor: {
         linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
         stops: [
-          [0, themeStyles[idx].transparent],
-          [1, "transparent"],
+          [0, themeStyles[idx].gradientStart],
+          [1, themeStyles[idx].gradientEnd],
         ],
       },
     })),
@@ -104,13 +93,13 @@ const CategoryTrendsChart = ({
   return (
     <div className="card card-chart">
       <div className="card-chart-header">
-        <h2 className="chart-title">
-          {title} by Category Within Selected Date Range
-        </h2>
-        <ChartSwitcher
-          selectedData={selectedData}
-          handleChartDataChange={handleChartDataChange}
-        />
+        <h2 className="chart-title">{title} by Category</h2>
+        <div className="chart-switcher-container">
+          <ChartSwitcher
+            selectedData={selectedData}
+            handleChartDataChange={handleChartDataChange}
+          />
+        </div>
       </div>
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>

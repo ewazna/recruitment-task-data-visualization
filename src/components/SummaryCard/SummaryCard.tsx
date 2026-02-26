@@ -29,10 +29,10 @@ const SummaryCard = ({
       <h1 className="header">{title}</h1>
       <p className="data">{visibleData}</p>
       {formattedStartDate && formattedEndDate && (
-        <p className="caption">
-          collected between:
+        <>
+          <p className="caption">collected between:</p>
           <p className="caption caption-data">{`${formattedStartDate} and ${formattedEndDate}`}</p>
-        </p>
+        </>
       )}
     </div>
   );

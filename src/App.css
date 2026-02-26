@@ -47,12 +47,22 @@
 }
 
 .dashboard-header {
-  margin-bottom: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  margin: 32px 0;
 }
 
 .dashboard-title {
   font-family: Inter, system-ui, sans-serif;
   font-weight: 500;
   color: var(--offwhite);
-  margin-bottom: 16px;
+  margin: 0;
+}
+
+.dashboard-subtitle {
+  font-weight: 500;
+  color: var(--grey);
+  margin: 0;
 }

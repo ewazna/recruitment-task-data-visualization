@@ -1,4 +1,4 @@
-import { tooltipFormatter } from "../components/CategoryTrendsChart/formatter";
+import { tooltipFormatter } from "./formatter";
 
 export const chartColors = {
   green: "#24d68e",
@@ -7,20 +7,42 @@ export const chartColors = {
   greenLight: "#65e2b0",
   purpleLight: "#c288f9",
   orangeLight: "#f8bb54",
-  greenTransparent: "rgba(36, 214, 142, 0.8)",
-  purpleTransparent: "rgba(168, 85, 247, 0.8)",
-  orangeTransparent: "rgba(245, 158, 11, 0.8)",
-  greenFaint: "rgba(36, 214, 142, 0.15)",
-  purpleFaint: "rgba(168, 85, 247, 0.15)",
-  orangeFaint: "rgba(245, 158, 11, 0.15)",
+  greenTransparent: "#23B17B",
+  purpleTransparent: "#8D4CB7",
+  orangeTransparent: "#CB8511",
+  greenFaint: "#1F2829",
+  purpleFaint: "#25222E",
+  orangeFaint: "#292523",
   offWhite: "#ececec",
   grey: "rgba(255, 255, 255, 0.05)",
   greyLight: "rgba(39, 42, 51, 0.85)",
 };
 
+export const themeStyles = [
+  {
+    main: chartColors.purple,
+    gradientStart: chartColors.purpleTransparent,
+    gradientEnd: chartColors.purpleFaint,
+    marker: chartColors.purpleLight,
+  },
+  {
+    main: chartColors.green,
+    gradientStart: chartColors.greenTransparent,
+    gradientEnd: chartColors.greenFaint,
+    marker: chartColors.greenLight,
+  },
+  {
+    main: chartColors.orange,
+    gradientStart: chartColors.orangeTransparent,
+    gradientEnd: chartColors.orangeFaint,
+    marker: chartColors.orangeLight,
+  },
+];
+
 export const highchartsTheme = {
   chart: {
     backgroundColor: "transparent",
+    marginRight: 30,
     style: {
       fontFamily: "Inter, system-ui, sans-serif",
     },

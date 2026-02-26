@@ -74,12 +74,19 @@ function App() {
     return null;
   }, [fetchedOrders]);
 
-  const grossRevenue = `${calculateGrossRevenue(filteredOrders)} ${currency}`;
+  const grossRevenue = useMemo(() => {
+    return `${calculateGrossRevenue(filteredOrders)} ${currency}`;
+  }, [filteredOrders, currency]);
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-header">
-        <h1 className="dashboard-title">Dashboard</h1>
+      <header className="dashboard-header">
+        <div className="dashboard-header-text">
+          <h1 className="dashboard-title">Dashboard</h1>
+          <p className="dashboard-subtitle">
+            Shows data within selected Date Range
+          </p>
+        </div>
         <DateRangePicker
           minDate={minDateRange}
           maxDate={maxDateRange}
@@ -88,31 +95,33 @@ function App() {
           handleChangeStartDate={handleChangeStartDate}
           handleChangeEndDate={handleChangeEndDate}
         />
-      </div>
-      <div className="row-container">
-        <CategoryTrendsChart
-          xAxisCategories={xAxisCategories}
-          currency={currency || "EUR"}
-          filteredOrders={filteredOrders}
-        />
-        <div className="column-container">
-          <SummaryCard
-            title="Number of orders:"
-            visibleData={filteredOrders.length}
-            startDate={startDate}
-            endDate={endDate}
+      </header>
+      <main>
+        <div className="row-container">
+          <CategoryTrendsChart
+            xAxisCategories={xAxisCategories}
+            currency={currency || "EUR"}
+            filteredOrders={filteredOrders}
           />
-          <SummaryCard
-            title="Gross revenue:"
-            visibleData={grossRevenue}
-            startDate={startDate}
-            endDate={endDate}
-          />
+          <div className="column-container">
+            <SummaryCard
+              title="Number of orders:"
+              visibleData={filteredOrders.length}
+              startDate={startDate}
+              endDate={endDate}
+            />
+            <SummaryCard
+              title="Gross revenue:"
+              visibleData={grossRevenue}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          </div>
         </div>
-      </div>
-      <div className="row-container">
-        <CustomerAnalysisDashboard orders={filteredOrders} />
-      </div>
+        <div className="row-container">
+          <CustomerAnalysisDashboard orders={filteredOrders} />
+        </div>
+      </main>
     </div>
   );
 }
