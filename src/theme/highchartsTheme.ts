@@ -16,6 +16,7 @@ export const chartColors = {
   offWhite: "#ececec",
   grey: "rgba(255, 255, 255, 0.05)",
   greyLight: "rgba(39, 42, 51, 0.85)",
+  greyText: "#a0a0a0",
 };
 
 export const themeStyles = [

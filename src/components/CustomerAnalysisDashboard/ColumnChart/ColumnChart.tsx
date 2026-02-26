@@ -1,31 +1,14 @@
 import HighchartsReact from "highcharts-react-official";
 import * as Highcharts from "highcharts";
-import { chartColors, highchartsTheme } from "../../../theme/highchartsTheme";
+import {
+  chartColors,
+  highchartsTheme,
+  themeStyles,
+} from "../../../theme/highchartsTheme";
 import type { ColumnChartProps } from "./types";
 
 const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
-  const title = `Device types by ${customerType} customers`;
-  const themeStyles = [
-    {
-      main: chartColors.purple,
-      gradientStart: chartColors.purpleTransparent,
-      gradientEnd: chartColors.purpleFaint,
-      marker: chartColors.purpleLight,
-    },
-    {
-      main: chartColors.green,
-      gradientStart: chartColors.greenTransparent,
-      gradientEnd: chartColors.greenFaint,
-      marker: chartColors.greenLight,
-    },
-    {
-      main: chartColors.orange,
-      gradientStart: chartColors.orangeTransparent,
-      gradientEnd: chartColors.orangeFaint,
-      marker: chartColors.orangeLight,
-    },
-  ];
-
+  const title = `${customerType[0].toUpperCase().concat(customerType.slice(1))} customers`;
   const options: Highcharts.Options = {
     ...highchartsTheme,
     chart: {
@@ -35,11 +18,23 @@ const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
     title: {
       ...highchartsTheme.title,
       text: title,
-      verticalAlign: "bottom",
       align: "center",
+      verticalAlign: "bottom",
+
       style: {
         ...highchartsTheme.title.style,
-        fontSize: "14px",
+        fontSize: "16px",
+      },
+    },
+    subtitle: {
+      text: "Device distribution by customers",
+      align: "center",
+      verticalAlign: "bottom",
+      y: -12,
+      style: {
+        color: chartColors.greyText,
+        fontSize: "12px",
+        fontWeight: "400",
       },
     },
     accessibility: {
@@ -59,6 +54,8 @@ const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
     },
     yAxis: {
       visible: false,
+      min: 0,
+      max: 105,
     },
     legend: {
       enabled: false,

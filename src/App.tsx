@@ -97,7 +97,7 @@ function App() {
         />
       </header>
       <main>
-        <div className="row-container">
+        <div className="row-container stretch-container">
           <CategoryTrendsChart
             xAxisCategories={xAxisCategories}
             currency={currency || "EUR"}

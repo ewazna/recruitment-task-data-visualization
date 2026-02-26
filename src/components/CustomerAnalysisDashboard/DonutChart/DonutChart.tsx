@@ -1,31 +1,14 @@
 import HighchartsReact from "highcharts-react-official";
 import * as Highcharts from "highcharts";
-import { chartColors, highchartsTheme } from "../../../theme/highchartsTheme";
+import {
+  chartColors,
+  highchartsTheme,
+  themeStyles,
+} from "../../../theme/highchartsTheme";
 import type { DonutChartProps } from "./types";
 import { labelFormatter, tooltipFormatter } from "./formatter";
 
 const DonutChart = ({ series }: DonutChartProps) => {
-  const themeStyles = [
-    {
-      main: chartColors.purple,
-      gradientStart: chartColors.purpleTransparent,
-      gradientEnd: chartColors.purpleFaint,
-      marker: chartColors.purpleLight,
-    },
-    {
-      main: chartColors.green,
-      gradientStart: chartColors.greenTransparent,
-      gradientEnd: chartColors.greenFaint,
-      marker: chartColors.greenLight,
-    },
-    {
-      main: chartColors.orange,
-      gradientStart: chartColors.orangeTransparent,
-      gradientEnd: chartColors.orangeFaint,
-      marker: chartColors.orangeLight,
-    },
-  ];
-
   const options: Highcharts.Options = {
     ...highchartsTheme,
     chart: {

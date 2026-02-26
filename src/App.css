@@ -22,10 +22,14 @@
 .row-container {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
   gap: 20px;
   width: 100%;
   margin-bottom: 20px;
+}
+
+.stretch-container {
+  align-items: stretch;
 }
 
 .column-container {
