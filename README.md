@@ -1,73 +1,28 @@
-# React + TypeScript + Vite
+### Solution description:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I identified the number of orders and revenue (quantity \* unitPrice) within a specific timeframe as the most critical data. I categorized the data into series reflecting different product categories. Due to the similarity in data patterns, I decided to implement a toggle switch on the chart, allowing the user to switch seamlessly between the number of orders and revenue. I chose a stacked area chart, which effectively illustrates the differences between categories while displaying the cumulative value through stacking.
 
-Currently, two official plugins are available:
+Next, I focused on customer analysis, as I believe this data is vital for any retail-based business. These insights can be used for marketing strategies and app development. I used a pie chart to show the breakdown of new versus returning customers. Additionally, I included smaller column charts to visualize the device usage for each customer types.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Requirements:
 
-## React Compiler
+- Node version 20.19.6 or newer
+- npm version 10.8.2 or newer
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### To run the project locally:
 
-## Expanding the ESLint configuration
+1. Clone repository
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. Install dependencies
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Run server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run dev
+```
+
+4. Navigate in your browser to `http://localhost:5173/`
