@@ -29,13 +29,13 @@ const DateRangePicker = ({
           value={startDate}
           onChange={handleChangeStartDate}
           minDate={minDate ?? undefined}
-          maxDate={maxDate ?? undefined}
+          maxDate={endDate ?? maxDate ?? undefined}
         />
         <DatePicker
           label="End Date"
           value={endDate}
           onChange={handleChangeEndDate}
-          minDate={minDate ?? undefined}
+          minDate={startDate ?? minDate ?? undefined}
           maxDate={maxDate ?? undefined}
         />
       </DemoContainer>
