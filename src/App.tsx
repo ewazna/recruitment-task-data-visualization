@@ -74,16 +74,19 @@ function App() {
   }, [fetchedOrders]);
 
   return (
-    <div className="container">
-      <DateRangePicker
-        minDate={minDateRange}
-        maxDate={maxDateRange}
-        startDate={startDate}
-        endDate={endDate}
-        handleChangeStartDate={handleChangeStartDate}
-        handleChangeEndDate={handleChangeEndDate}
-      />
-      <div className="card">
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1 className="dashboard-title">Dashboard</h1>
+        <DateRangePicker
+          minDate={minDateRange}
+          maxDate={maxDateRange}
+          startDate={startDate}
+          endDate={endDate}
+          handleChangeStartDate={handleChangeStartDate}
+          handleChangeEndDate={handleChangeEndDate}
+        />
+      </div>
+      <div className="container">
         <OrdersByCategoryChart
           xAxisCategories={xAxisCategories}
           series={ordersByCategoryChartSeries}
