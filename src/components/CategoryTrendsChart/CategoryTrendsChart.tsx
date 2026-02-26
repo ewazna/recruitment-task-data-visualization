@@ -3,12 +3,12 @@ import HighchartsReact from "highcharts-react-official";
 import { chartColors, highchartsTheme } from "../../theme/highchartsTheme";
 import ChartSwitcher from "../ChartSwitcher/ChartSwitcher";
 import { useMemo, useState } from "react";
+import { getSeriesForByCategoryChart } from "./utils";
 import type { MouseEvent } from "react";
 import type { YAxisData } from "../ChartSwitcher/types";
 import type { CategoryTrendsChartProps } from "./types";
 
 import "./CategoryTrendsChart.css";
-import { getSeriesForByCategoryChart } from "./utils";
 
 const CategoryTrendsChart = ({
   xAxisCategories,

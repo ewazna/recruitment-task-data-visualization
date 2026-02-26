@@ -10,6 +10,9 @@ export const chartColors = {
   greenTransparent: "rgba(36, 214, 142, 0.8)",
   purpleTransparent: "rgba(168, 85, 247, 0.8)",
   orangeTransparent: "rgba(245, 158, 11, 0.8)",
+  greenFaint: "rgba(36, 214, 142, 0.15)",
+  purpleFaint: "rgba(168, 85, 247, 0.15)",
+  orangeFaint: "rgba(245, 158, 11, 0.15)",
   offWhite: "#ececec",
   grey: "rgba(255, 255, 255, 0.05)",
   greyLight: "rgba(39, 42, 51, 0.85)",
@@ -26,7 +29,7 @@ export const highchartsTheme = {
     style: {
       color: chartColors.offWhite,
       fontWeight: "500",
-      fontSize: "16px",
+      fontSize: "20px",
     },
   },
   xAxis: {
