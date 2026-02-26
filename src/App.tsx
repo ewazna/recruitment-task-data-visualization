@@ -9,7 +9,6 @@ import {
   findLatestDate,
   getCategoriesForXAxis,
   getFilteredOrdersByDateRange,
-  getSeriesForOrdersByCategoryChart,
 } from "./utils";
 import { fetchOrdersWithMetadata } from "./api";
 import type { Currency, Order } from "./types";
@@ -60,13 +59,6 @@ function App() {
     return [];
   }, [startDate, endDate]);
 
-  const ordersByCategoryChartSeries = useMemo(() => {
-    if (xAxisCategories && filteredOrders) {
-      return getSeriesForOrdersByCategoryChart(xAxisCategories, filteredOrders);
-    }
-    return [];
-  }, [xAxisCategories, filteredOrders]);
-
   const minDateRange = useMemo(() => {
     if (fetchedOrders && fetchedOrders.length > 0) {
       return findEarliestDate(fetchedOrders);
@@ -99,7 +91,8 @@ function App() {
       <div className="row-container">
         <OrdersByCategoryChart
           xAxisCategories={xAxisCategories}
-          series={ordersByCategoryChartSeries}
+          currency={currency || "EUR"}
+          filteredOrders={filteredOrders}
         />
         <div className="column-container">
           <SummaryCard

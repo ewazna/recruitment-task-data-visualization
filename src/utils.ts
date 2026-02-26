@@ -3,7 +3,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 dayjs.extend(isSameOrBefore);
 
 import type { Dayjs } from "dayjs";
-import type { Order, OrdersByCategory, Series } from "./types";
+import type { Order } from "./types";
 
 export const findEarliestDate = (fetchedOrders: Order[]): Dayjs => {
   const orderwithEarliestDate = fetchedOrders.reduce(
@@ -46,18 +46,6 @@ export const getFilteredOrdersByDateRange = (
   return [];
 };
 
-export const sortOrdersByCategories = (filteredOrders: Order[]) => {
-  const sortedOrders = {} as OrdersByCategory;
-
-  filteredOrders.forEach((order) => {
-    if (!Object.hasOwn(sortedOrders, order.category)) {
-      sortedOrders[order.category] = [];
-    }
-    sortedOrders[order.category].push(order);
-  });
-  return sortedOrders;
-};
-
 export const getCategoriesForXAxis = (startDate: Dayjs, endDate: Dayjs) => {
   const xAxisCategories = [];
 
@@ -69,35 +57,6 @@ export const getCategoriesForXAxis = (startDate: Dayjs, endDate: Dayjs) => {
     xAxisCategories.push(day.format("DD/MM/YYYY"));
   }
   return xAxisCategories;
-};
-
-export const getSeriesForOrdersByCategoryChart = (
-  xAxisCategories: string[],
-  filteredOrders: Order[],
-): Series[] => {
-  const sortedOrders = sortOrdersByCategories(filteredOrders);
-
-  const seriesData = Object.fromEntries(
-    Object.keys(sortedOrders).map((key) => [
-      key,
-      Array(xAxisCategories.length).fill(0),
-    ]),
-  );
-  xAxisCategories.forEach((date, idx) => {
-    Object.entries(sortedOrders).forEach(([category, orders]) => {
-      const ordersForSpecifiedDate = orders.filter((order) =>
-        dayjs(order.timestamp).isSame(dayjs(date, "DD/MM/YYYY"), "day"),
-      );
-      const numberOfOrdersForSpecifiedDate = ordersForSpecifiedDate.length;
-
-      seriesData[category][idx] = numberOfOrdersForSpecifiedDate;
-    });
-  });
-
-  return Object.entries(seriesData).map(([name, data]) => ({
-    name,
-    data,
-  }));
 };
 
 export const calculateGrossRevenue = (filteredOrders: Order[]) => {

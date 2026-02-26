@@ -1,17 +1,43 @@
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import type { Series } from "../../types";
 import { chartColors, highchartsTheme } from "../../theme/highchartsTheme";
+import ChartSwitcher from "../ChartSwitcher/ChartSwitcher";
+import { useMemo, useState } from "react";
+import type { MouseEvent } from "react";
+import type { YAxisData } from "../ChartSwitcher/types";
+import type { OrdersByCategoryChartProps } from "./types";
 
-type OrdersByCategoryChartProps = {
-  series: Series[];
-  xAxisCategories: string[];
-};
+import "./OrdersByCategoryChart.css";
+import { getSeriesForByCategoryChart } from "./utils";
 
 const OrdersByCategoryChart = ({
-  series,
   xAxisCategories,
+  currency,
+  filteredOrders,
 }: OrdersByCategoryChartProps) => {
+  const [selectedData, setSelectedData] = useState<YAxisData>("orders");
+
+  const series = useMemo(() => {
+    return getSeriesForByCategoryChart(
+      selectedData,
+      xAxisCategories,
+      filteredOrders,
+    );
+  }, [xAxisCategories, filteredOrders, selectedData]);
+
+  const title = selectedData[0].toUpperCase().concat(selectedData.slice(1));
+  const YAxisLabel = {
+    orders: "Number of orders",
+    revenue: `Gross revenue in ${currency}`,
+  };
+
+  const handleChartDataChange = (
+    e: MouseEvent<HTMLElement>,
+    newValue: YAxisData,
+  ) => {
+    setSelectedData(newValue);
+  };
+
   const themeStyles = [
     {
       main: chartColors.purple,
@@ -38,7 +64,7 @@ const OrdersByCategoryChart = ({
     },
     title: {
       ...highchartsTheme.title,
-      text: "Orders by Category Within Selected Date Range",
+      text: undefined,
     },
     xAxis: {
       ...highchartsTheme.xAxis,
@@ -46,7 +72,7 @@ const OrdersByCategoryChart = ({
     },
     yAxis: {
       ...highchartsTheme.yAxis,
-      title: { ...highchartsTheme.yAxis.title, text: "Number of orders" },
+      title: { ...highchartsTheme.yAxis.title, text: YAxisLabel[selectedData] },
     },
     plotOptions: {
       areaspline: {
@@ -77,6 +103,15 @@ const OrdersByCategoryChart = ({
 
   return (
     <div className="card card-chart">
+      <div className="card-chart-header">
+        <h2 className="chart-title">
+          {title} by Category Within Selected Date Range
+        </h2>
+        <ChartSwitcher
+          selectedData={selectedData}
+          handleChartDataChange={handleChartDataChange}
+        />
+      </div>
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );

@@ -1,3 +1,5 @@
+import type { CATEGORIES } from "./const";
+
 export type FetchedData = {
   meta: {
     currency: Currency;
@@ -25,7 +27,7 @@ export type Order = {
   deliveryDays: number;
 };
 
-export type Category = "Electronics" | "Home" | "Sports";
+export type Category = (typeof CATEGORIES)[number];
 
 export type Currency = "EUR";
 

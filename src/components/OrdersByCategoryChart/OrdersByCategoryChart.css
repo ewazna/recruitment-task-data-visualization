@@ -1,0 +1,20 @@
+.card-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 8px;
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--offwhite);
+  margin: 0;
+}
+
+.card-chart {
+  align-content: center;
+  flex: 1;
+  min-width: 0;
+}
