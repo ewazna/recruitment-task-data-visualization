@@ -1,4 +1,4 @@
-import { tooltipFormatter } from "../components/OrdersByCategoryChart/formatter";
+import { tooltipFormatter } from "../components/CategoryTrendsChart/formatter";
 
 export const chartColors = {
   green: "#24d68e",

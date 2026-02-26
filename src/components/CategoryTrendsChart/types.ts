@@ -1,6 +1,6 @@
 import type { Currency, Order } from "../../types";
 
-export type OrdersByCategoryChartProps = {
+export type CategoryTrendsChartProps = {
   xAxisCategories: string[];
   currency: Currency;
   filteredOrders: Order[];

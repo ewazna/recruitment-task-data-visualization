@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Dayjs } from "dayjs";
 import DateRangePicker from "./components/DateRangePicker/DateRangePicker";
-import OrdersByCategoryChart from "./components/OrdersByCategoryChart/OrdersByCategoryChart";
+import CategoryTrendsChart from "./components/CategoryTrendsChart/CategoryTrendsChart";
 import SummaryCard from "./components/SummaryCard/SummaryCard";
 import {
   calculateGrossRevenue,
@@ -89,7 +89,7 @@ function App() {
         />
       </div>
       <div className="row-container">
-        <OrdersByCategoryChart
+        <CategoryTrendsChart
           xAxisCategories={xAxisCategories}
           currency={currency || "EUR"}
           filteredOrders={filteredOrders}

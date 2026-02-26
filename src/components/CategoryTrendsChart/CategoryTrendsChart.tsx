@@ -5,16 +5,16 @@ import ChartSwitcher from "../ChartSwitcher/ChartSwitcher";
 import { useMemo, useState } from "react";
 import type { MouseEvent } from "react";
 import type { YAxisData } from "../ChartSwitcher/types";
-import type { OrdersByCategoryChartProps } from "./types";
+import type { CategoryTrendsChartProps } from "./types";
 
-import "./OrdersByCategoryChart.css";
+import "./CategoryTrendsChart.css";
 import { getSeriesForByCategoryChart } from "./utils";
 
-const OrdersByCategoryChart = ({
+const CategoryTrendsChart = ({
   xAxisCategories,
   currency,
   filteredOrders,
-}: OrdersByCategoryChartProps) => {
+}: CategoryTrendsChartProps) => {
   const [selectedData, setSelectedData] = useState<YAxisData>("orders");
 
   const series = useMemo(() => {
@@ -117,4 +117,4 @@ const OrdersByCategoryChart = ({
   );
 };
 
-export default OrdersByCategoryChart;
+export default CategoryTrendsChart;
