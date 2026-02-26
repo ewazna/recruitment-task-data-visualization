@@ -1,12 +1,10 @@
-import type { CLIENT_TYPE } from "../../../const";
+import type { CustomerType } from "../../../types";
 
 export type ClientAnalysisDonutChartProps = {
-  clientTypeSeries: ClientTypeSeries[];
+  series: ClientTypeSeries[];
 };
 
 type ClientTypeSeries = {
-  name: ClienType;
+  name: CustomerType;
   y: number;
 };
-
-type ClienType = (typeof CLIENT_TYPE)[number];

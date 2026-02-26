@@ -1,4 +1,4 @@
-import type { CATEGORIES } from "./const";
+import type { CATEGORIES, CUSTOMER_TYPE, DEVICE_TYPE } from "./const";
 
 export type FetchedData = {
   meta: {
@@ -29,6 +29,10 @@ export type Order = {
 
 export type Category = (typeof CATEGORIES)[number];
 
+export type Device = (typeof DEVICE_TYPE)[number];
+
+export type CustomerType = (typeof CUSTOMER_TYPE)[number];
+
 export type Currency = "EUR";
 
 type Country = "PL" | "DE" | "FR" | "ES" | "IT" | "NL";
@@ -46,10 +50,6 @@ type Subcategory =
   | "Outdoor";
 
 type PaymentMethod = "card" | "paypal" | "blik";
-
-type CustomerType = "new" | "returning";
-
-type Device = "mobile" | "tablet" | "desktop";
 
 export type OrdersByCategory = Record<Category, Order[]>;
 

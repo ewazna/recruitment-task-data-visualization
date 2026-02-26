@@ -1,0 +1,11 @@
+.column-chart-container {
+  height: 200px;
+}
+
+.donut-chart-container {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
