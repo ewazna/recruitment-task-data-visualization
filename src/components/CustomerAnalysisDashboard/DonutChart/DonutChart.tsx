@@ -1,10 +1,10 @@
 import HighchartsReact from "highcharts-react-official";
 import * as Highcharts from "highcharts";
 import { chartColors, highchartsTheme } from "../../../theme/highchartsTheme";
-import type { ColumnChartProps } from "./types";
+import type { DonutChartProps } from "./types";
+import { labelFormatter, tooltipFormatter } from "./formatter";
 
-const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
-  const title = `Device types by ${customerType} customers`;
+const DonutChart = ({ series }: DonutChartProps) => {
   const themeStyles = [
     {
       main: chartColors.purple,
@@ -30,59 +30,46 @@ const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
     ...highchartsTheme,
     chart: {
       ...highchartsTheme.chart,
-      type: "column",
+      type: "pie",
     },
     title: {
       ...highchartsTheme.title,
-      text: title,
-      verticalAlign: "bottom",
-      align: "center",
-      style: {
-        ...highchartsTheme.title.style,
-        fontSize: "14px",
-      },
+      text: "Types of customers",
     },
     accessibility: {
       point: {
         valueSuffix: "%",
       },
     },
-    xAxis: {
-      type: "category",
-      labels: {
-        style: {
-          color: chartColors.offWhite,
-          fontSize: "12px",
-          textOutline: "none",
-        },
-      },
-    },
-    yAxis: {
-      visible: false,
-    },
-    legend: {
-      enabled: false,
+    tooltip: {
+      ...highchartsTheme.tooltip,
+      shared: false,
+      formatter: tooltipFormatter,
     },
     plotOptions: {
-      column: {
+      pie: {
+        allowPointSelect: true,
+        cursor: "pointer",
         dataLabels: {
           enabled: true,
-          inside: false,
-          format: "{y}%",
+          useHTML: true,
+          connectorColor: chartColors.grey,
           style: {
             color: chartColors.offWhite,
             textOutline: "none",
-            fontSize: "16px",
-            fontWeight: "800",
+            fontWeight: "400",
           },
+          formatter: labelFormatter,
         },
       },
     },
     series: [
       {
-        data: series.map((client, idx) => ({
-          name: client.name,
-          y: client.y,
+        name: "Customer type",
+        innerSize: "75%",
+        data: series.map((customer, idx) => ({
+          name: customer.name,
+          y: customer.y,
           borderColor: themeStyles[idx].marker,
           borderWidth: 2,
           shadow: {
@@ -92,9 +79,13 @@ const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
             offsetY: 4,
           },
           color: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            radialGradient: {
+              cx: 0.5,
+              cy: 0.5,
+              r: 0.5,
+            },
             stops: [
-              [0, themeStyles[idx].gradientStart],
+              [0.6, themeStyles[idx].gradientStart],
               [1, themeStyles[idx].gradientEnd],
             ],
           },
@@ -106,4 +97,4 @@ const ColumnChart = ({ series, customerType }: ColumnChartProps) => {
   return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-export default ColumnChart;
+export default DonutChart;

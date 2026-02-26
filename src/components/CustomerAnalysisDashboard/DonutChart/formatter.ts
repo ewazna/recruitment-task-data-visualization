@@ -24,7 +24,7 @@ export const tooltipFormatter = function (this: any) {
     <div style="font-family: 'Inter', sans-serif; padding: 4px; min-width: 180px;">
       <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;">
         <span style="color: ${point.color.stops[0][1]}; font-size: 16px;">●</span>
-        <span style="color: #cbd5e1; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;">Client Type:</span>
+        <span style="color: #cbd5e1; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;">Customer Type:</span>
         <span style="font-weight: 700; color: white; margin-left: auto;">${point.name}</span>
       </div>
 
@@ -35,13 +35,13 @@ export const tooltipFormatter = function (this: any) {
         </div>
         
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="color: #94a3b8; font-size: 12px;">Number of clients:</span>
+          <span style="color: #94a3b8; font-size: 12px;">Number of customers:</span>
           <span style="font-weight: 600; color: white;">${point.y}</span>
         </div>
       </div>
 
       <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dotted rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-weight: 500; color: #cbd5e1; font-size: 12px;">Total number of clients:</span>
+        <span style="font-weight: 500; color: #cbd5e1; font-size: 12px;">Total number of customers:</span>
         <span style="font-weight: 700; color: #65e2b0;">${total}</span>
       </div>
     </div>`;

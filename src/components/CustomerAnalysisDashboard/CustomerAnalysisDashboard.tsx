@@ -1,12 +1,14 @@
-import ClientAnalysisDonutChart from "./ClientAnalysisDonutChart/ClientAnalysisDonutChart";
+import DonutChart from "./DonutChart/DonutChart";
 import { getCustomerTypeSeries, getDeviceTypeSeries } from "./utils";
-import type { ClientAnalysisDashboardProps } from "./types";
+import type { CustomerAnalysisDashboardProps } from "./types";
 import ColumnChart from "./ColumnChart/ColumnChart";
 import { CUSTOMER_TYPE } from "../../const";
 
-import "./ClientAnalysisDashboard.css";
+import "./CustomerAnalysisDashboard.css";
 
-const ClientAnalysisDashboard = ({ orders }: ClientAnalysisDashboardProps) => {
+const CustomerAnalysisDashboard = ({
+  orders,
+}: CustomerAnalysisDashboardProps) => {
   const customerTypeSeries = getCustomerTypeSeries(orders);
   const newCustomerDeviceSeries = getDeviceTypeSeries(orders, CUSTOMER_TYPE[0]);
   const returningCustomerDeviceSeries = getDeviceTypeSeries(
@@ -17,14 +19,14 @@ const ClientAnalysisDashboard = ({ orders }: ClientAnalysisDashboardProps) => {
   return (
     <div className="card card-chart">
       <div className="card-chart-header">
-        <h2 className="chart-title">Client Analysis</h2>
+        <h2 className="chart-title">Customer Analysis</h2>
       </div>
       <div className="row-container">
         <div className="column-chart-container">
           <ColumnChart series={newCustomerDeviceSeries} customerType="new" />
         </div>
         <div className="donut-chart-container">
-          <ClientAnalysisDonutChart series={customerTypeSeries} />
+          <DonutChart series={customerTypeSeries} />
         </div>
         <div className="column-chart-container">
           <ColumnChart
@@ -37,4 +39,4 @@ const ClientAnalysisDashboard = ({ orders }: ClientAnalysisDashboardProps) => {
   );
 };
 
-export default ClientAnalysisDashboard;
+export default CustomerAnalysisDashboard;

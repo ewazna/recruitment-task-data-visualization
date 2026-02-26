@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 import DateRangePicker from "./components/DateRangePicker/DateRangePicker";
 import CategoryTrendsChart from "./components/CategoryTrendsChart/CategoryTrendsChart";
 import SummaryCard from "./components/SummaryCard/SummaryCard";
-import ClientAnalysisDashboard from "./components/ClientAnalysisDashboard/ClientAnalysisDashboard";
+import CustomerAnalysisDashboard from "./components/CustomerAnalysisDashboard/CustomerAnalysisDashboard";
 import {
   calculateGrossRevenue,
   findEarliestDate,
@@ -111,7 +111,7 @@ function App() {
         </div>
       </div>
       <div className="row-container">
-        <ClientAnalysisDashboard orders={filteredOrders} />
+        <CustomerAnalysisDashboard orders={filteredOrders} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { CustomerType, Order } from "../../types";
 
-export type ClientAnalysisDashboardProps = {
+export type CustomerAnalysisDashboardProps = {
   orders: Order[];
 };
 
