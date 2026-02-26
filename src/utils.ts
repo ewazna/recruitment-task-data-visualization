@@ -99,3 +99,11 @@ export const getSeriesForOrdersByCategoryChart = (
     data,
   }));
 };
+
+export const calculateGrossRevenue = (filteredOrders: Order[]) => {
+  return filteredOrders.reduce(
+    (total, currentOrder) =>
+      total + currentOrder.quantity * currentOrder.unitPrice,
+    0,
+  );
+};

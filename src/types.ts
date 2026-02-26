@@ -27,7 +27,7 @@ export type Order = {
 
 export type Category = "Electronics" | "Home" | "Sports";
 
-type Currency = "EUR";
+export type Currency = "EUR";
 
 type Country = "PL" | "DE" | "FR" | "ES" | "IT" | "NL";
 

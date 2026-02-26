@@ -76,7 +76,7 @@ const OrdersByCategoryChart = ({
   };
 
   return (
-    <div className="card">
+    <div className="card card-chart">
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );

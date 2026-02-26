@@ -1,0 +1,35 @@
+.card-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex: 1;
+}
+
+.header {
+  width: 100%;
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+.caption {
+  margin: 8px 0 0 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 200;
+  color: #a0a0a0;
+}
+
+.caption-data {
+  font-weight: 600;
+}
+
+.data {
+  font-size: 48px;
+  font-weight: 200;
+  align-self: center;
+  margin: 12px 0;
+  color: var(--primary);
+}

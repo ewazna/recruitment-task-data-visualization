@@ -2,15 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { Dayjs } from "dayjs";
 import DateRangePicker from "./components/DateRangePicker/DateRangePicker";
 import OrdersByCategoryChart from "./components/OrdersByCategoryChart/OrdersByCategoryChart";
+import SummaryCard from "./components/SummaryCard/SummaryCard";
 import {
+  calculateGrossRevenue,
   findEarliestDate,
   findLatestDate,
   getCategoriesForXAxis,
   getFilteredOrdersByDateRange,
   getSeriesForOrdersByCategoryChart,
 } from "./utils";
-import { fetchOrders } from "./api";
-import type { Order } from "./types";
+import { fetchOrdersWithMetadata } from "./api";
+import type { Currency, Order } from "./types";
 import { isDayjs } from "./typeGuards";
 
 import "./App.css";
@@ -19,11 +21,17 @@ function App() {
   const [fetchedOrders, setFetchedOrders] = useState<Order[] | null>(null);
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [currency, setCurrency] = useState<Currency | null>(null);
 
   useEffect(() => {
     const loadOrders = async () => {
-      const orders = await fetchOrders();
+      const fetchedData = await fetchOrdersWithMetadata();
+
+      if (!fetchedData) return;
+
+      const { orders, meta } = fetchedData;
       setFetchedOrders(orders);
+      setCurrency(meta.currency);
 
       if (orders && orders.length > 0) {
         setStartDate(findEarliestDate(orders));
@@ -73,6 +81,8 @@ function App() {
     return null;
   }, [fetchedOrders]);
 
+  const grossRevenue = `${calculateGrossRevenue(filteredOrders)} ${currency}`;
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
@@ -86,11 +96,25 @@ function App() {
           handleChangeEndDate={handleChangeEndDate}
         />
       </div>
-      <div className="container">
+      <div className="row-container">
         <OrdersByCategoryChart
           xAxisCategories={xAxisCategories}
           series={ordersByCategoryChartSeries}
         />
+        <div className="column-container">
+          <SummaryCard
+            title="Number of orders:"
+            visibleData={filteredOrders.length}
+            startDate={startDate}
+            endDate={endDate}
+          />
+          <SummaryCard
+            title="Gross revenue:"
+            visibleData={grossRevenue}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
       </div>
     </div>
   );
