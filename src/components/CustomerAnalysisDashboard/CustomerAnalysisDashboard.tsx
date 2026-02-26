@@ -23,16 +23,19 @@ const CustomerAnalysisDashboard = ({
       </div>
       <div className="row-container">
         <div className="column-chart-container">
-          <ColumnChart series={newCustomerDeviceSeries} customerType="new" />
-        </div>
-        <div className="donut-chart-container">
-          <DonutChart series={customerTypeSeries} />
-        </div>
-        <div className="column-chart-container">
           <ColumnChart
             series={returningCustomerDeviceSeries}
             customerType="returning"
           />
+        </div>
+        <div className="donut-chart-container">
+          <DonutChart
+            series={customerTypeSeries}
+            numberOfCustomers={orders.length}
+          />
+        </div>
+        <div className="column-chart-container">
+          <ColumnChart series={newCustomerDeviceSeries} customerType="new" />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 :root {
   --primary: #1962ef;
-  --primary-light: #5da2ff;
+  --primary-light: #2f89ff;
   --offwhite: #ececec;
   --offblack: #1e1f24;
   --grey: #a0a0a0;
@@ -69,4 +69,15 @@
   font-weight: 500;
   color: var(--grey);
   margin: 0;
+}
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+.footer-text {
+  color: var(--grey);
+  padding-bottom: 0;
 }

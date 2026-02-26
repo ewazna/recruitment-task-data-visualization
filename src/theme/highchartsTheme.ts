@@ -41,6 +41,9 @@ export const themeStyles = [
 ];
 
 export const highchartsTheme = {
+  credits: {
+    enabled: false,
+  },
   chart: {
     backgroundColor: "transparent",
     marginRight: 30,
@@ -88,6 +91,7 @@ export const highchartsTheme = {
   tooltip: {
     shared: true,
     useHTML: true,
+    outside: true,
     backgroundColor: chartColors.greyLight,
     borderColor: chartColors.grey,
     borderRadius: 12,

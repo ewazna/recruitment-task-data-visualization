@@ -12,7 +12,7 @@ const ChartSwitcher = ({
       size="small"
       value={selectedData}
       exclusive
-      onChange={handleChartDataChange}
+      onChange={(e, value) => handleChartDataChange(value)}
       aria-label="chart data selector"
     >
       <ToggleButton value="orders">Number of orders</ToggleButton>

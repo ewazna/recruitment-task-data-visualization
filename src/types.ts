@@ -1,4 +1,5 @@
 import type { CATEGORIES, CUSTOMER_TYPE, DEVICE_TYPE } from "./const";
+import * as Highcharts from "highcharts";
 
 export type FetchedData = {
   meta: {
@@ -12,16 +13,16 @@ export type FetchedData = {
 export type Order = {
   orderId: string;
   timestamp: string;
-  country: Country;
+  country: string;
   city: string;
   lat: number;
   lon: number;
   category: Category;
-  subcategory: Subcategory;
+  subcategory: string;
   product: string;
   quantity: number;
   unitPrice: number;
-  paymentMethod: PaymentMethod;
+  paymentMethod: string;
   customerType: CustomerType;
   device: Device;
   deliveryDays: number;
@@ -35,25 +36,15 @@ export type CustomerType = (typeof CUSTOMER_TYPE)[number];
 
 export type Currency = "EUR";
 
-type Country = "PL" | "DE" | "FR" | "ES" | "IT" | "NL";
-
-type Subcategory =
-  | "Gaming"
-  | "Mobile"
-  | "Computers"
-  | "Wearables"
-  | "Audio"
-  | "Cleaning"
-  | "Lighting"
-  | "Kichen"
-  | "Fitness"
-  | "Outdoor";
-
-type PaymentMethod = "card" | "paypal" | "blik";
-
 export type OrdersByCategory = Record<Category, Order[]>;
 
 export type Series = {
   name: string;
   data: number[];
+};
+
+export type Options = Highcharts.Options & {
+  chart: {
+    customVariables?: Record<string, unknown>;
+  };
 };

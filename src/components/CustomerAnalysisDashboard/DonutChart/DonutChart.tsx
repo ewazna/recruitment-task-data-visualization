@@ -7,13 +7,17 @@ import {
 } from "../../../theme/highchartsTheme";
 import type { DonutChartProps } from "./types";
 import { labelFormatter, tooltipFormatter } from "./formatter";
+import type { Options } from "../../../types";
 
-const DonutChart = ({ series }: DonutChartProps) => {
-  const options: Highcharts.Options = {
+const DonutChart = ({ numberOfCustomers, series }: DonutChartProps) => {
+  const options: Options = {
     ...highchartsTheme,
     chart: {
       ...highchartsTheme.chart,
       type: "pie",
+      customVariables: {
+        numberOfCustomers,
+      },
     },
     title: {
       ...highchartsTheme.title,
@@ -49,6 +53,7 @@ const DonutChart = ({ series }: DonutChartProps) => {
     series: [
       {
         name: "Customer type",
+        type: "pie",
         innerSize: "75%",
         data: series.map((customer, idx) => ({
           name: customer.name,
@@ -73,7 +78,7 @@ const DonutChart = ({ series }: DonutChartProps) => {
             ],
           },
         })),
-      },
+      } as Highcharts.SeriesPieOptions,
     ],
   };
 

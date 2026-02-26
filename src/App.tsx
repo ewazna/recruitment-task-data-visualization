@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import DateRangePicker from "./components/DateRangePicker/DateRangePicker";
 import CategoryTrendsChart from "./components/CategoryTrendsChart/CategoryTrendsChart";
 import SummaryCard from "./components/SummaryCard/SummaryCard";
@@ -22,6 +22,7 @@ function App() {
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [currency, setCurrency] = useState<Currency | null>(null);
+  const [generatedAt, setGeneratedAt] = useState<string>();
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -32,6 +33,7 @@ function App() {
       const { orders, meta } = fetchedData;
       setFetchedOrders(orders);
       setCurrency(meta.currency);
+      setGeneratedAt(meta.generatedAt);
 
       if (orders && orders.length > 0) {
         setStartDate(findEarliestDate(orders));
@@ -122,6 +124,11 @@ function App() {
           <CustomerAnalysisDashboard orders={filteredOrders} />
         </div>
       </main>
+      <footer className="footer">
+        <span className="footer-text">
+          Data generated at: {dayjs(generatedAt).format("MMMM D, YYYY")}
+        </span>
+      </footer>
     </div>
   );
 }

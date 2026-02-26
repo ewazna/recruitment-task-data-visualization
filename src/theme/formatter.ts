@@ -4,7 +4,7 @@ export const tooltipFormatter = function (this: any) {
     0,
   );
   const chartOptions = this.series.chart.options;
-  const { title, visibleCurrency } = chartOptions.chart.custom;
+  const { title, visibleCurrency } = chartOptions.chart.customVariables;
 
   let tooltipHtml = `
         <div style="font-size: 14px; margin-bottom: 8px;">${title} made in 

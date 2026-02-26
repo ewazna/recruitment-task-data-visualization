@@ -1,17 +1,9 @@
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import type { Dayjs } from "dayjs";
+import type { DateRangePickerProps } from "./types";
 
-type DateRangePickerProps = {
-  startDate: Dayjs | null;
-  endDate: Dayjs | null;
-  handleChangeStartDate: (newDate: Dayjs | null) => void;
-  handleChangeEndDate: (newDate: Dayjs | null) => void;
-  minDate: Dayjs | null;
-  maxDate: Dayjs | null;
-};
+import "./DateRangePicker.css";
 
 const DateRangePicker = ({
   minDate,
@@ -23,7 +15,7 @@ const DateRangePicker = ({
 }: DateRangePickerProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DatePicker"]}>
+      <div className="date-picker-container">
         <DatePicker
           label="Start Date"
           value={startDate}
@@ -38,7 +30,7 @@ const DateRangePicker = ({
           minDate={startDate ?? minDate ?? undefined}
           maxDate={maxDate ?? undefined}
         />
-      </DemoContainer>
+      </div>
     </LocalizationProvider>
   );
 };

@@ -7,6 +7,7 @@ import { getSeriesForByCategoryChart } from "./utils";
 import type { MouseEvent } from "react";
 import type { YAxisData } from "../ChartSwitcher/types";
 import type { CategoryTrendsChartProps } from "./types";
+import type { Options } from "../../types";
 
 import "./CategoryTrendsChart.css";
 
@@ -32,19 +33,16 @@ const CategoryTrendsChart = ({
     revenue: `Gross revenue in ${currency}`,
   };
 
-  const handleChartDataChange = (
-    e: MouseEvent<HTMLElement>,
-    newValue: YAxisData,
-  ) => {
+  const handleChartDataChange = (newValue: YAxisData) => {
     setSelectedData(newValue);
   };
 
-  const options = {
+  const options: Options = {
     ...highchartsTheme,
     chart: {
       ...highchartsTheme.chart,
       type: "area",
-      custom: {
+      customVariables: {
         title,
         visibleCurrency,
       },
